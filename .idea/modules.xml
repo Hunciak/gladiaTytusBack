@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/gladia-tytus-front.iml" filepath="$PROJECT_DIR$/.idea/gladia-tytus-front.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/gladia-tytus-back.iml" filepath="$PROJECT_DIR$/.idea/gladia-tytus-back.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../gladia-tytus-front/.idea/gladia-tytus-front.iml" filepath="$PROJECT_DIR$/../gladia-tytus-front/.idea/gladia-tytus-front.iml" />
     </modules>
   </component>
 </project>
