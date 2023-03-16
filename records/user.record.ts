@@ -31,13 +31,13 @@ export class UserRecord implements UserEntity {
 
     }
 
-    static async getUser(id:string): Promise<UserRecord | null> {
-        const [results] = await pool.execute("SELECT name, strength, dexterity, stamina, charisma  FROM `users` WHERE id = :id", {
-            id,
-        }) as UserRecordResult;
-        
-        return results.length === 0 ? null : new UserRecord(results[0])
-    }
+    // static async getUser(id:string): Promise<UserRecordResult | null> {
+    //     const [results] = await pool.execute("SELECT name, strength, dexterity, stamina, charisma  FROM `users` WHERE id = :id", {
+    //         id,
+    //     });
+    //
+    //     return results.length === 0 ? null : new UserRecord(results[0])
+    // }
 
     async insert(): Promise<void> {
         if (!this.id) {
