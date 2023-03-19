@@ -3,6 +3,8 @@ import {ValidationError} from "../utils/errors";
 import {v4 as uuid} from 'uuid';
 import { pool } from "../utils/db";
 import { FieldPacket } from "mysql2";
+import {bcrypt} from "../utils/bcrypt";
+
 
 type UserRecordResult = [SingleUserEntity[], FieldPacket[]]
 
@@ -13,15 +15,15 @@ export class UserRecord implements UserEntity {
     password: string;
 
     constructor(obj: UserEntity) {
-        if (!obj.name || obj.name.length > 15) {
+        if (!obj.name || obj.name.length > 30) {
             throw new ValidationError('Nazwa użytkowanika nie może być pusta, ani przekraczać 15 znaków.')
         }
 
-        if (!obj.email || obj.email.includes('@')) {
+        if (!obj.email || !obj.email.includes('@')) {
             throw new ValidationError('Email użytkownika nie moży być pysty lub podana nazwa nie jest emailem')
         }
 
-        if (!obj.password || obj.password.length >= 8 || obj.password.length <= 30) {
+        if (!obj.password || obj.password.length <= 8 || obj.password.length >= 30) {
             throw new ValidationError('Hasło użytkownika nie może być puste oraz zawierać od 8 do 30 znaków')
         }
 
@@ -31,17 +33,20 @@ export class UserRecord implements UserEntity {
 
     }
 
-    // static async getUser(id:string): Promise<UserRecordResult | null> {
-    //     const [results] = await pool.execute("SELECT name, strength, dexterity, stamina, charisma  FROM `users` WHERE id = :id", {
-    //         id,
-    //     });
-    //
-    //     return results.length === 0 ? null : new UserRecord(results[0])
-    // }
+    static async getUser(id:string): Promise<UserRecordResult | null | any> {
+        const [results] = await pool.execute("SELECT name, strength, dexterity, stamina, charisma  FROM `users` WHERE id = :id", {
+            id,
+        }) as UserRecordResult;
+        console.log(results)
+        return results.length === 0 ? null : new UserRecord(results[0]);
+    }
 
     async insert(): Promise<void> {
         if (!this.id) {
             this.id = uuid()
+            this.password = await bcrypt(this.password, 10)
+
+
         } else {
             throw new Error('Cannot insert something that is already inserted!')
         }
