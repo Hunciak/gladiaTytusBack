@@ -1,4 +1,4 @@
-import {SingleUserEntity, UserEntity} from "../types/test/user-entity";
+import {SingleUserEntity, UserLoginData} from "../types/user/user-login-data";
 import {ValidationError} from "../utils/errors";
 import {v4 as uuid} from 'uuid';
 import { pool } from "../utils/db";
@@ -11,13 +11,13 @@ import {compare} from "bcrypt";
 type UserRecordResult = [SingleUserEntity[], FieldPacket[]];
 
 
-export class UserRecord implements UserEntity {
+export class UserRecord implements UserLoginData {
     id: string;
     name: string;
     email: string;
     password: string;
 
-    constructor(obj: UserEntity) {
+    constructor(obj: UserLoginData) {
         if (!obj.name || obj.name.length > 30) {
             throw new ValidationError('Nazwa użytkowanika nie może być pusta, ani przekraczać 30 znaków.')
         }
@@ -46,7 +46,7 @@ export class UserRecord implements UserEntity {
 
     static async logIn(email: string, password: string): Promise<Boolean | null> {
 
-        const [results] = await pool.query("SELECT password FROM users WHERE email = :email", {
+        const [results] = await pool.query("SELECT id password FROM users WHERE email = :email", {
             email,
         }) as UserRecordResult;
 
