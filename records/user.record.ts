@@ -1,4 +1,4 @@
-import {AllUserStats, SingleUserEntity, UserLoginData} from "../types/user/user-login-data";
+import {AllEquipment, AllUserStats, SingleUserEntity, UserLoginData} from "../types/user/user-login-data";
 import {ValidationError} from "../utils/errors";
 import {v4 as uuid} from 'uuid';
 import { pool } from "../utils/db";
@@ -42,7 +42,7 @@ export class UserRecord implements UserLoginData {
         const [results] = await pool.execute("SELECT name, level, experience, HP, strength, dexterity, stamina, charisma, PLN   FROM `users` WHERE id = :id", {
             id,
         }) as UserRecordResult;
-        console.log(results[0]);
+
         // const averageDamage = getPercentageValue(results[0].strength, 5);
         // const damageReduction = getPercentageValue(results[0].dexterity, results[0].level);
         // const HP = getHP(results[0].stamina, results[0].level);
@@ -56,16 +56,22 @@ export class UserRecord implements UserLoginData {
         const [getId] = await pool.query("SELECT id, password FROM users WHERE email = :email", {
             email,
         }) as UserRecordResult;
-        console.log('wynik z logina', getId.length)
+
        return getId.length === 0 ? null : (await comparePassword(password, getId[0].password) ?  getId[0].id : null)
     }
 
+    static async getEquipment(id: string):Promise<AllEquipment> {
+
+        const [getEq] = await pool.execute("SELECT name, type, tier, stats_attack, stats_defence, stats_strength, stats_charisma FROM items WHERE id IN (SELECT itemId from users_items WHERE userId = :id)", {
+            id}) as any
+        console.log('getEq co dostane xD',getEq)
+        return getEq
+    }
+
     static async getOpponent(opponentId: string): Promise<any> {
-        console.log('jestem w getOpponent w dupie', opponentId)
         const [results] = await pool.execute("SELECT name, hp, tier, damage, chanceOnHit, damageReduction, maxGold from `opponents` WHERE id = :opponentId", {
             opponentId
         }) as any;
-        console.log('wynik:', results)
         return results[0]
     }
 

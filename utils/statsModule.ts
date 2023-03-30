@@ -6,4 +6,4 @@ export const getPercentageValue = async (firstParam: number, secondParam: number
 
 export const getHP = async (stamina: number, level:number): Promise<number> => {
     return stamina * 5 + level * 15;
-}
+};
