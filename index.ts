@@ -6,6 +6,7 @@ import {registrationRouter} from "./routers/registration.router";
 import {signInRouter} from "./routers/signIn.router";
 import {AppRouter} from "./routers/app.router";
 
+
 const app = express();
 
 app.use(cors({
@@ -18,6 +19,8 @@ app.use((req,res,next)=>{console.log(req.body); next()}
 app.use('/signin', signInRouter);
 app.use('/signup', registrationRouter);
 app.use('/app', AppRouter);
+
+
 
 
 app.all("*", (req, res, next) => {

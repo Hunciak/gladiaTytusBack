@@ -1,4 +1,4 @@
-import {SingleUserEntity, UserLoginData} from "../types/user/user-login-data";
+import {AllUserStats, SingleUserEntity, UserLoginData} from "../types/user/user-login-data";
 import {ValidationError} from "../utils/errors";
 import {v4 as uuid} from 'uuid';
 import { pool } from "../utils/db";
@@ -6,6 +6,7 @@ import { FieldPacket } from "mysql2";
 
 import {bcrypt, comparePassword} from "../utils/bcrypt";
 import {compare} from "bcrypt";
+import {getHP, getPercentageValue} from "../utils/statsModule";
 
 
 type UserRecordResult = [SingleUserEntity[], FieldPacket[]];
@@ -36,21 +37,36 @@ export class UserRecord implements UserLoginData {
 
     }
 
-    static async getUser(id:string): Promise<UserRecordResult | null | any> {
-        const [results] = await pool.execute("SELECT name, strength, dexterity, stamina, charisma  FROM `users` WHERE id = :id", {
+    static async getUser(id:string): Promise<SingleUserEntity | Error> {
+        console.log('am I here?', id)
+        const [results] = await pool.execute("SELECT name, level, experience, HP, strength, dexterity, stamina, charisma, PLN   FROM `users` WHERE id = :id", {
             id,
         }) as UserRecordResult;
-        console.log(results)
-        return results.length === 0 ? null : new UserRecord(results[0]);
+        console.log(results[0]);
+        // const averageDamage = getPercentageValue(results[0].strength, 5);
+        // const damageReduction = getPercentageValue(results[0].dexterity, results[0].level);
+        // const HP = getHP(results[0].stamina, results[0].level);
+        // const chanceOnHit = getPercentageValue(results[0].dexterity, results[0].level)
+        // const gowno = [results[0], averageDamage, damageReduction, HP, chanceOnHit]
+
+        return results.length !== 0 ? results[0] : new Error('No data of given id');
     }
 
-    static async logIn(email: string, password: string): Promise<Boolean | null> {
-
-        const [results] = await pool.query("SELECT id password FROM users WHERE email = :email", {
+    static async logIn(email: string, password: string): Promise<string | null> {
+        const [getId] = await pool.query("SELECT id, password FROM users WHERE email = :email", {
             email,
         }) as UserRecordResult;
+        console.log('wynik z logina', getId.length)
+       return getId.length === 0 ? null : (await comparePassword(password, getId[0].password) ?  getId[0].id : null)
+    }
 
-       return results.length === 0 ? null : await comparePassword(password, results[0].password)
+    static async getOpponent(opponentId: string): Promise<any> {
+        console.log('jestem w getOpponent w dupie', opponentId)
+        const [results] = await pool.execute("SELECT name, hp, tier, damage, chanceOnHit, damageReduction, maxGold from `opponents` WHERE id = :opponentId", {
+            opponentId
+        }) as any;
+        console.log('wynik:', results)
+        return results[0]
     }
 
     async insert(): Promise<void | string> {
