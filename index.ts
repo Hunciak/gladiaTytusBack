@@ -13,8 +13,8 @@ app.use(cors({
     origin: 'http://localhost:3000'
 }));
 app.use(express.json());
-app.use((req,res,next)=>{console.log(req.body); next()}
-)
+// app.use((req,res,next)=>{console.log(req.body); next()}
+// )
 
 app.use('/signin', signInRouter);
 app.use('/signup', registrationRouter);
@@ -23,10 +23,10 @@ app.use('/app', AppRouter);
 
 
 
-app.all("*", (req, res, next) => {
-    console.log('jestem')
-    res.json('dupa')
-});
+// app.all("*", (req, res, next) => {
+//     console.log('jestem')
+//     res.json('dupa')
+// });
 
 app.use(handleError);
 

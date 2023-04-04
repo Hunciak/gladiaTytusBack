@@ -34,12 +34,22 @@ export interface AllUserStats {
 }
 
 export interface AllEquipment {
-    chest: string,
-    helmet: string,
-    gloves: string,
-    shoes: string,
-    ring: string,
-    necklace: string,
-    erring: string,
-    weapon: string,
+    chest: string;
+    helmet: string;
+    gloves: string;
+    shoes: string;
+    ring: string;
+    necklace: string;
+    erring: string;
+    weapon: string;
+}
+
+export interface AllOpponentStats {
+    name: string;
+    hp: number;
+    tier: number;
+    damage: number;
+    chanceOnHit: number;
+    damageReduction: number;
+    maxGold: number;
 }

@@ -1,4 +1,10 @@
-import {AllEquipment, AllUserStats, SingleUserEntity, UserLoginData} from "../types/user/user-login-data";
+import {
+    AllEquipment,
+    AllOpponentStats,
+    AllUserStats,
+    SingleUserEntity,
+    UserLoginData
+} from "../types/user/user-login-data";
 import {ValidationError} from "../utils/errors";
 import {v4 as uuid} from 'uuid';
 import { pool } from "../utils/db";
@@ -10,6 +16,8 @@ import {getHP, getPercentageValue} from "../utils/statsModule";
 
 
 type UserRecordResult = [SingleUserEntity[], FieldPacket[]];
+type EquipmentRecordResult = [AllEquipment[], FieldPacket[]];
+type OpponentRecordResult = [AllOpponentStats[], FieldPacket[]]
 
 
 export class UserRecord implements UserLoginData {
@@ -38,7 +46,6 @@ export class UserRecord implements UserLoginData {
     }
 
     static async getUser(id:string): Promise<SingleUserEntity | Error> {
-        console.log('am I here?', id)
         const [results] = await pool.execute("SELECT name, level, experience, HP, strength, dexterity, stamina, charisma, PLN   FROM `users` WHERE id = :id", {
             id,
         }) as UserRecordResult;
@@ -60,19 +67,18 @@ export class UserRecord implements UserLoginData {
        return getId.length === 0 ? null : (await comparePassword(password, getId[0].password) ?  getId[0].id : null)
     }
 
-    static async getEquipment(id: string):Promise<AllEquipment> {
+    static async getEquipment(id: string):Promise<AllEquipment[] | null> {
 
         const [getEq] = await pool.execute("SELECT name, type, tier, stats_attack, stats_defence, stats_strength, stats_charisma FROM items WHERE id IN (SELECT itemId from users_items WHERE userId = :id)", {
-            id}) as any
-        console.log('getEq co dostane xD',getEq)
-        return getEq
+            id}) as EquipmentRecordResult
+        return getEq.length === 0 ? null : getEq;
     }
 
-    static async getOpponent(opponentId: string): Promise<any> {
-        const [results] = await pool.execute("SELECT name, hp, tier, damage, chanceOnHit, damageReduction, maxGold from `opponents` WHERE id = :opponentId", {
+    static async getOpponent(opponentId: string): Promise<AllOpponentStats> {
+        const [getOpp] = await pool.execute("SELECT name, hp, tier, damage, chanceOnHit, damageReduction, maxGold from `opponents` WHERE id = :opponentId", {
             opponentId
-        }) as any;
-        return results[0]
+        }) as OpponentRecordResult;
+        return getOpp.length === 0 ? null : getOpp[0];
     }
 
     async insert(): Promise<void | string> {
@@ -85,6 +91,21 @@ export class UserRecord implements UserLoginData {
         }
 
         await pool.execute("INSERT INTO `users`(`id`, `name`, `email`, `password`) VALUES(:id, :name, :email, :password)", this)
+    }
+
+    static async addGold(id: string, amount: number): Promise<void> {
+
+        await pool.execute("UPDATE user SET PLN = :amount WHERE id = :id", {
+            id,
+            amount,
+        })
+    }
+
+    static async getAllOpponents(): Promise<string[] | null> {
+        const [getAll] = await pool.execute("SELECT id, name FROM opponents") as any
+        console.log('biore wszystko:',getAll)
+        console.log(typeof getAll)
+        return getAll.length === 0 ? null : getAll;
     }
 
 }
