@@ -1,5 +1,6 @@
 import {Router} from "express";
 import {UserRecord} from "../records/user.record";
+import {addStatsValidation} from "../utils/addStatsValidation";
 
 
 
@@ -29,5 +30,10 @@ export const AppRouter = Router()
     .post('user/eq/addGold', async (req, res) => {
         const addGold = await UserRecord.addGold(req.body.id, req.body.amount);
         res.json(addGold)
+    })
+
+    .post('/addstats', async (req, res) => {
+        const addStats = await addStatsValidation(req.body)
+        console.log('routing: ',addStats)
     })
 

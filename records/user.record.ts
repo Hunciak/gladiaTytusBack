@@ -1,4 +1,5 @@
 import {
+    AddStatsValidationType,
     AllEquipment,
     AllOpponentStats,
     AllUserStats,
@@ -81,6 +82,17 @@ export class UserRecord implements UserLoginData {
         return getOpp.length === 0 ? null : getOpp[0];
     }
 
+    static async updateStats(stats: AddStatsValidationType): Promise<void> {
+        await pool.execute("UPDATE users SET strength = :strength, dexterity = :dexterity, stamina = :stamina, charisma = :charisma, PLN = :PLN WHERE id = :id", {
+            id: stats.id,
+            strength: stats.strength,
+            dexterity: stats.dexterity,
+            stamina: stats.stamina,
+            charisma: stats.charisma,
+            PLN: stats.PLN,
+        })
+    }
+
     async insert(): Promise<void | string> {
         if (!this.id) {
             this.id = uuid()
@@ -103,9 +115,6 @@ export class UserRecord implements UserLoginData {
 
     static async getAllOpponents(): Promise<string[] | null> {
         const [getAll] = await pool.execute("SELECT id, name FROM opponents") as any
-        console.log('biore wszystko:',getAll)
-        console.log(typeof getAll)
         return getAll.length === 0 ? null : getAll;
     }
-
 }

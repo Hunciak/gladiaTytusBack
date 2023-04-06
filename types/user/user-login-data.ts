@@ -53,3 +53,12 @@ export interface AllOpponentStats {
     damageReduction: number;
     maxGold: number;
 }
+
+export interface AddStatsValidationType {
+    id:string;
+    strength: number;
+    dexterity: number;
+    stamina: number;
+    charisma: number;
+    PLN: number;
+}
