@@ -1,19 +1,19 @@
 import {
     AddStatsValidationType,
     AllEquipment,
-    AllOpponentStats,
-    AllUserStats,
+    AllOpponentStats, FightResType,
     SingleUserEntity,
-    UserLoginData
-} from "../types/user/user-login-data";
+    UserLoginData, UserOppIdType
+} from "../types";
 import {ValidationError} from "../utils/errors";
 import {v4 as uuid} from 'uuid';
 import { pool } from "../utils/db";
 import { FieldPacket } from "mysql2";
 
 import {bcrypt, comparePassword} from "../utils/bcrypt";
-import {compare} from "bcrypt";
-import {getHP, getPercentageValue} from "../utils/statsModule";
+import {fight} from "../utils/fight";
+import {addStatsValidation} from "../utils/addStatsValidation";
+
 
 
 type UserRecordResult = [SingleUserEntity[], FieldPacket[]];
@@ -51,12 +51,6 @@ export class UserRecord implements UserLoginData {
             id,
         }) as UserRecordResult;
 
-        // const averageDamage = getPercentageValue(results[0].strength, 5);
-        // const damageReduction = getPercentageValue(results[0].dexterity, results[0].level);
-        // const HP = getHP(results[0].stamina, results[0].level);
-        // const chanceOnHit = getPercentageValue(results[0].dexterity, results[0].level)
-        // const gowno = [results[0], averageDamage, damageReduction, HP, chanceOnHit]
-
         return results.length !== 0 ? results[0] : new Error('No data of given id');
     }
 
@@ -75,7 +69,8 @@ export class UserRecord implements UserLoginData {
         return getEq.length === 0 ? null : getEq;
     }
 
-    static async getOpponent(opponentId: string): Promise<AllOpponentStats> {
+    static async getOpponent(opponentId: number | string): Promise<AllOpponentStats> {
+        console.log(opponentId)
         const [getOpp] = await pool.execute("SELECT name, hp, tier, damage, chanceOnHit, damageReduction, maxGold from `opponents` WHERE id = :opponentId", {
             opponentId
         }) as OpponentRecordResult;
@@ -107,7 +102,7 @@ export class UserRecord implements UserLoginData {
 
     static async addGold(id: string, amount: number): Promise<void> {
 
-        await pool.execute("UPDATE user SET PLN = :amount WHERE id = :id", {
+        await pool.execute("UPDATE users SET PLN = :amount WHERE id = :id", {
             id,
             amount,
         })
@@ -116,5 +111,17 @@ export class UserRecord implements UserLoginData {
     static async getAllOpponents(): Promise<string[] | null> {
         const [getAll] = await pool.execute("SELECT id, name FROM opponents") as any
         return getAll.length === 0 ? null : getAll;
+    }
+
+    static async fightModule(data: UserOppIdType): Promise<FightResType | null> {
+        const fightRes = await fight(data)
+        return fightRes ? fightRes : null;
+
+
+    }
+
+    static async addStats(data: AddStatsValidationType): Promise<string> {
+        await addStatsValidation(data)
+        return "Dodano statystyki"
     }
 }

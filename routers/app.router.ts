@@ -1,6 +1,7 @@
 import {Router} from "express";
 import {UserRecord} from "../records/user.record";
 import {addStatsValidation} from "../utils/addStatsValidation";
+import {fight} from "../utils/fight";
 
 
 
@@ -13,6 +14,7 @@ export const AppRouter = Router()
 
     .get('/opp/:opponentId', async (req, res) => {
         const getOpponent = await UserRecord.getOpponent(req.params.opponentId);
+        console.log(req.params.opponentId)
         res.json(getOpponent);
     })
 
@@ -33,7 +35,13 @@ export const AppRouter = Router()
     })
 
     .post('/addstats', async (req, res) => {
-        const addStats = await addStatsValidation(req.body)
+        const addStats = await UserRecord.addStats(req.body)
         console.log('routing: ',addStats)
+    })
+
+    .post('/fight', async (req, res) => {
+        console.log('doszedlem do fight')
+        const fightResult = await UserRecord.fightModule(req.body)
+        res.json(fightResult)
     })
 

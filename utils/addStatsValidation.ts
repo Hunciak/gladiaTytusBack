@@ -1,4 +1,4 @@
-import {AddStatsValidationType} from "../types/user/user-login-data";
+import {AddStatsValidationType} from "../types";
 import {pool} from "./db";
 import {FieldPacket} from "mysql2";
 import {ValidationError} from "./errors";
@@ -7,7 +7,6 @@ import {UserRecord} from "../records/user.record";
 type StatsValidationResult = [AddStatsValidationType[], FieldPacket[]]
 
 export const addStatsValidation = async (stats: AddStatsValidationType) => {
-    console.log('staty:',stats)
 
     const [baseStats] = await pool.execute("SELECT id, strength, dexterity, stamina, charisma, PLN FROM `users` WHERE id = :id", {
         id: stats.id,
