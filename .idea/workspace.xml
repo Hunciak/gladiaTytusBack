@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99beb74c-cc0c-4f0f-ab63-281481b811be" name="Changes" comment="Adding addstatistics module, routing.">
-      <change afterPath="$PROJECT_DIR$/utils/fight.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/records/user.record.ts" beforeDir="false" afterPath="$PROJECT_DIR$/records/user.record.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routers/app.router.ts" beforeDir="false" afterPath="$PROJECT_DIR$/routers/app.router.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/user/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/user/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/user/user-login-data.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/user/user-login-data.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/addStatsValidation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/addStatsValidation.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../gladia-tytus-front" beforeDir="false" afterPath="$PROJECT_DIR$/../gladia-tytus-front" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,6 +12,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="5" />
@@ -35,18 +28,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "TODO_SCOPE": "All Places",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Michał/WebstormProjects/gladiaTytus/gladia-tytus-back",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Users\\Michał\\WebstormProjects\\gladiaTytus\\gladia-tytus-back\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Michał/WebstormProjects/gladiaTytus/gladia-tytus-back&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Michał\\WebstormProjects\\gladiaTytus\\gladia-tytus-back\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="start" type="js.build_tools.npm" activateToolWindowBeforeRun="false" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
@@ -182,7 +175,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680610256425</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Adding fight module, adding gold after fight, adding stats validation, fixing git problem (couldnt push), fixing cors problem (no connection with FE, types).">
+      <created>1681295604517</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1681295604517</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -211,7 +211,8 @@
     <MESSAGE value="Adding GetOneOpponent." />
     <MESSAGE value="Adding GetAllOpponents. configuring props in navbars." />
     <MESSAGE value="Adding SignInBar. Displaying navbar after log in." />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding SignInBar. Displaying navbar after log in." />
+    <MESSAGE value="Adding fight module, adding gold after fight, adding stats validation, fixing git problem (couldnt push), fixing cors problem (no connection with FE, types)." />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding fight module, adding gold after fight, adding stats validation, fixing git problem (couldnt push), fixing cors problem (no connection with FE, types)." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
