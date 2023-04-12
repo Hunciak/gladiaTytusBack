@@ -2,15 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99beb74c-cc0c-4f0f-ab63-281481b811be" name="Changes" comment="Adding addstatistics module, routing.">
-      <change afterPath="$PROJECT_DIR$/utils/fight.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/records/user.record.ts" beforeDir="false" afterPath="$PROJECT_DIR$/records/user.record.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routers/app.router.ts" beforeDir="false" afterPath="$PROJECT_DIR$/routers/app.router.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/user/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/user/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/user/user-login-data.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/user/user-login-data.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/addStatsValidation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/addStatsValidation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.test.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddStatistics/AddStatistics.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/GetAllOpponents/GetAllOpponents.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/GetOneOpponent/GetOneOpponent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/GetOneUser/GetOneUser.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/GetUserEq/GetUserEq.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SignIn/SignIn.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SignIn/SignIn.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SignUp/SignUp.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SignUp/SignUp.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/Btn.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/Btn.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layout/Header.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layout/Header.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layout/Navbar.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layout/Navbar.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layout/SignInBar.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/react-app-env.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reportWebVitals.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setupTests.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../gladia-tytus-front" beforeDir="false" afterPath="$PROJECT_DIR$/../gladia-tytus-front" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,6 +40,29 @@
   </component>
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="5" />
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="fajnieJest" />
+                    <option name="lastUsedInstant" value="1681295560" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="develop" />
+                    <option name="lastUsedInstant" value="1681295559" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -41,13 +81,23 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "TODO_SCOPE": "All Places",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Michał/WebstormProjects/gladiaTytus/gladia-tytus-back",
+    "last_opened_file_path": "C:/Users/Michał/WebstormProjects/gladiaTytus/gladia-tytus-front",
     "nodejs_package_manager_path": "npm",
     "ts.external.directory.path": "C:\\Users\\Michał\\WebstormProjects\\gladiaTytus\\gladia-tytus-back\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.start">
+    <configuration name="start (1)" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/../gladia-tytus-front/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="start" type="js.build_tools.npm" activateToolWindowBeforeRun="false" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -60,6 +110,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.start (1)" />
         <item itemvalue="npm.start" />
       </list>
     </recent_temporary>
@@ -193,7 +244,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="develop" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
