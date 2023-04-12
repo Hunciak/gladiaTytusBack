@@ -1,7 +1,5 @@
-import { Router } from "express";
+import {Router} from "express";
 import {UserRecord} from "../records/user.record";
-
-
 
 
 export const signInRouter = Router()

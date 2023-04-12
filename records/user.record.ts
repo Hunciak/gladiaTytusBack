@@ -7,13 +7,12 @@ import {
 } from "../types";
 import {ValidationError} from "../utils/errors";
 import {v4 as uuid} from 'uuid';
-import { pool } from "../utils/db";
-import { FieldPacket } from "mysql2";
+import {pool} from "../utils/db";
+import {FieldPacket} from "mysql2";
 
 import {bcrypt, comparePassword} from "../utils/bcrypt";
 import {fight} from "../utils/fight";
 import {addStatsValidation} from "../utils/addStatsValidation";
-
 
 
 type UserRecordResult = [SingleUserEntity[], FieldPacket[]];
@@ -46,7 +45,7 @@ export class UserRecord implements UserLoginData {
 
     }
 
-    static async getUser(id:string): Promise<SingleUserEntity | Error> {
+    static async getUser(id: string): Promise<SingleUserEntity | Error> {
         const [results] = await pool.execute("SELECT name, level, experience, HP, strength, dexterity, stamina, charisma, PLN   FROM `users` WHERE id = :id", {
             id,
         }) as UserRecordResult;
@@ -59,13 +58,14 @@ export class UserRecord implements UserLoginData {
             email,
         }) as UserRecordResult;
 
-       return getId.length === 0 ? null : (await comparePassword(password, getId[0].password) ?  getId[0].id : null)
+        return getId.length === 0 ? null : (await comparePassword(password, getId[0].password) ? getId[0].id : null)
     }
 
-    static async getEquipment(id: string):Promise<AllEquipment[] | null> {
+    static async getEquipment(id: string): Promise<AllEquipment[] | null> {
 
         const [getEq] = await pool.execute("SELECT name, type, tier, stats_attack, stats_defence, stats_strength, stats_charisma FROM items WHERE id IN (SELECT itemId from users_items WHERE userId = :id)", {
-            id}) as EquipmentRecordResult
+            id
+        }) as EquipmentRecordResult
         return getEq.length === 0 ? null : getEq;
     }
 

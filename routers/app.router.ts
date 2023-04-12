@@ -4,7 +4,6 @@ import {addStatsValidation} from "../utils/addStatsValidation";
 import {fight} from "../utils/fight";
 
 
-
 export const AppRouter = Router()
 
     .get('/user/:id', async (req, res) => {
@@ -36,7 +35,7 @@ export const AppRouter = Router()
 
     .post('/addstats', async (req, res) => {
         const addStats = await UserRecord.addStats(req.body)
-        console.log('routing: ',addStats)
+        console.log('routing: ', addStats)
     })
 
     .post('/fight', async (req, res) => {

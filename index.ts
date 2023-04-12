@@ -15,13 +15,9 @@ app.use(cors({
 app.use(express.json());
 
 
-
 app.use('/signin', signInRouter);
 app.use('/signup', registrationRouter);
 app.use('/app', AppRouter);
-
-
-
 
 
 app.use(handleError);

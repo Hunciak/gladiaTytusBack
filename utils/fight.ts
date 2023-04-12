@@ -14,7 +14,7 @@ type UserRecordResult = [SingleUserEntity[], FieldPacket[]];
 type UserCombatResult = [UserCombatStatsType[], FieldPacket[]]
 
 const hit = (percentageHit: number) => {
- const randomValue = Math.floor(Math.random()*100+1)
+    const randomValue = Math.floor(Math.random() * 100 + 1)
     return (percentageHit >= randomValue ? 1 : 0)
 }
 
@@ -37,37 +37,36 @@ export const fight = async (data: UserOppIdType): Promise<FightResType> => {
     let oppHp: number = oppStats.hp;
     let userHits: number = 0;
     let oppHits: number = 0;
-    let goldRoll: number = userStats.PLN + Math.floor(Math.random()*oppStats.maxGold)
+    let goldRoll: number = Math.floor(Math.random() * oppStats.maxGold)
+    let totalGold: number = userStats.PLN + goldRoll
     let win: boolean = false;
 
     if (userHp !== 0 || userHits > oppHits) {
         console.log('id', data.id)
-        await UserRecord.addGold(data.id, goldRoll)
+        await UserRecord.addGold(data.id, totalGold)
         win = true;
     }
 
     const fightLog: [string] = ['Twój log walki']
 
 
-
-
     for (let i = 0; i < 20; i++) {
         if (userHp > 0 && oppHp > 0) {
-            let oppHit = oppStats.damage*hit(oppStats.chanceOnHit)*userStats.charisma/10;
-            let userHit = usersCombatStats.damage*hit(usersCombatStats.chanceOnHit)*oppStats.damageReduction/10;
+            let oppHit = oppStats.damage * hit(oppStats.chanceOnHit) * userStats.charisma / 10;
+            let userHit = usersCombatStats.damage * hit(usersCombatStats.chanceOnHit) * oppStats.damageReduction / 10;
             userHp = userHp - oppHit;
             oppHp = oppHp - userHit;
             userHits = userHits + userHit;
             oppHits = oppHits + oppHit;
-            fightLog.push(`W rundzie ${i+1} zadałeś ${userHit} obrażeń dla ${oppStats.name}!`);
-            fightLog.push(`W rundzie ${i+1} ${oppStats.name} zadał Ci ${oppHit} obrażeń !`);
+            fightLog.push(`W rundzie ${i + 1} zadałeś ${userHit} obrażeń dla ${oppStats.name}!`);
+            fightLog.push(`W rundzie ${i + 1} ${oppStats.name} zadał Ci ${oppHit} obrażeń !`);
         } else if (userHp <= 0) {
             fightLog.push(`Przegrałeś, straciłeś wszystkie punkty życia!`);
         } else if (oppHp <= 0) {
             fightLog.push(`${oppStats.name}, zginął, stracił wszystkie punkty życia!`);
         }
     }
-   return {
+    return {
         win,
         userLog: fightLog,
         userHp,
